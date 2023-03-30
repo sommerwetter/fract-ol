@@ -31,7 +31,7 @@ int	main()
 	window = mlx_new_window(mlx_ptr, 500, 500, "test");
 	while (x <= (tmp + 100))
 		mlx_pixel_put(mlx_ptr, window, x++, y, 0xFFFFFF);
-	x -= 100;
+	x -= 101;
 	tmp = y;
 	while (y <= (tmp + 100))
 		mlx_pixel_put(mlx_ptr, window, x, y++, 0xFFFFFF);
@@ -39,7 +39,7 @@ int	main()
 	while (x <= (tmp + 100))
 		mlx_pixel_put(mlx_ptr, window, x++, y, 0xFFFFFF);
 	tmp = y;
-	while (y >= (tmp - 100))
+	while (y >= (tmp - 101))
 		mlx_pixel_put(mlx_ptr, window, x, y--, 0xFFFFFF);
 	mlx_loop(mlx_ptr);
 	return (0);
