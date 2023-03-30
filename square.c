@@ -14,7 +14,7 @@
 #include <math.h>
 
 /*
-	this draws a rectangle
+	this draws a square
 */
 int	main()
 {
