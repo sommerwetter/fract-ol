@@ -6,7 +6,7 @@
 /*   By: marmoral <marmoral@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 18:32:59 by marmoral          #+#    #+#             */
-/*   Updated: 2023/04/15 15:08:20 by marmoral         ###   ########.fr       */
+/*   Updated: 2023/04/15 16:38:50 by marmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,16 @@ void	put_p(int color, int x, int y, t_img *img)
 	return (0);
 }*/
 
+/*
 int	main()
 {
 	t_info info;
 	int		x;
 	int		y;
-	/*double	min_x = -2.0;
+	double	min_x = -2.0;
 	double	max_x = 1.0;
 	double	min_i = -1.5;
-	double	max_i = min_i + (max_x - min_x) * HEIGHT / WIDTH;*/
+	double	max_i = min_i + (max_x - min_x) * HEIGHT / WIDTH;
 	int		tmp;
 
 	x = 150;
@@ -79,19 +80,90 @@ int	main()
 	mlx_loop(info.mlx_ptr);
 	return (0);
 }
+*/
+void	mandelbrot(t_info *info)
+{
+	int		x;
+	int		y;
+	int		tmp;
 
-/*static void	argCheck(char)
+	x = 150;
+	y = 150;
+	tmp = x;
+	while (x <= (tmp + 100))
+		put_p(0xFFFFFF, x++, y, &info->img);
+	x -= 101;
+	tmp = y;
+	while (y <= (tmp + 100))
+		put_p(0xFFFFFF, x, y++, &info->img);
+	tmp = x;
+	while (x <= (tmp + 100))
+		put_p(0xFFFFFF, x++, y, &info->img);
+	tmp = y;
+	while (y >= (tmp - 101))
+		put_p(0xFFFFFF, x, y--, &info->img);
+	mlx_put_image_to_window(info->mlx_ptr, info->window, info->mlx_img, 0, 0);
+}
+
+void	julia()
 {
 	
 }
 
+static void setup_win(t_info *info)
+{
+	info->mlx_ptr = mlx_init();
+	info->window = mlx_new_window(info->mlx_ptr, WIDTH, HEIGHT, "fract-ol");
+	info->mlx_img = mlx_new_image(info->mlx_ptr, WIDTH, HEIGHT);
+	info->img.addr = mlx_get_data_addr(info->mlx_img, &info->img.bpp, &info->img.line_len, &info->img.endian);
+}
+
+static void	render(t_info *info)
+{
+	if (info->type == 1)
+	{
+		setup_win(info);
+		mandelbrot(info);
+	}
+	if (info->type == 2)
+	{
+		setup_win(info);
+		julia();
+	}
+}
+
+static int	Check(t_info *info, char **av)
+{
+	init_info(info);
+	if (!ft_strncmp(av[1], "m", 1))
+	{
+		info->type = 1;
+		return (0);
+	}
+	if (!ft_strncmp(av[1], "j", 1))
+	{
+		info->type = 2;
+		return (0);
+	}
+	else
+		return (1);
+	return (0);
+}
+
 int main(int ac, char **av)
 {
-	
-}*/
-
-/*
-	(Run make in mlx)
-	gcc -g -Wall -Werror -Wextra -Imlx -c fractol.c -o fractol.o && gcc -g -Wall -Werror -Wextra -Imlx -c utils.c -o utils.o && gcc fractol.o utils.o -g -Wall -Werror -Wextra -Lmlx -lmlx -framework OpenGL -framework AppKit && ./a.out
-	
-*/
+	t_info	info;
+	if (ac < 2)
+	{
+		ft_putendl_fd("Wrong arguments", 1);
+		return (1);
+	}
+	if	(Check(&info, av))
+	{
+		ft_putendl_fd("Wrong input", 1);
+		return (1);
+	}
+	render(&info);
+	mlx_loop(info.mlx_ptr);
+	return (0);
+}

@@ -6,7 +6,7 @@
 /*   By: marmoral <marmoral@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 18:33:06 by marmoral          #+#    #+#             */
-/*   Updated: 2023/04/15 15:30:28 by marmoral         ###   ########.fr       */
+/*   Updated: 2023/04/15 15:49:43 by marmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct s_info
 	void	*mlx_ptr;
 	void	*window;
 	void	*mlx_img;
+	int		type;
 	int		set;
 	double	min_r;
 	double	max_r;
