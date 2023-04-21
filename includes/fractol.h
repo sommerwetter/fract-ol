@@ -6,7 +6,7 @@
 /*   By: marmoral <marmoral@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 18:33:06 by marmoral          #+#    #+#             */
-/*   Updated: 2023/04/21 23:18:35 by marmoral         ###   ########.fr       */
+/*   Updated: 2023/04/22 00:00:39 by marmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,6 @@ double	ft_atod(const char *str);
 int		mandelbrot(double cr, double ci);
 int		julia(double zr, double zi, t_info *info);
 int		rgb2c(int r, int g, int b);
+int		exit_key(int key, t_info	*info);
 
 #endif
