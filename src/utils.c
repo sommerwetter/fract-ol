@@ -6,7 +6,7 @@
 /*   By: marmoral <marmoral@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 18:40:56 by marmoral          #+#    #+#             */
-/*   Updated: 2023/04/21 23:39:57 by marmoral         ###   ########.fr       */
+/*   Updated: 2023/04/22 00:28:53 by marmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,29 +67,27 @@ int	rgb2c(int r, int g, int b)
 */
 void	set_palette(t_info *info, int tr, int tg, int tb)
 {
-	int	r;
-	int	g;
-	int	b;
+	t_color black;
 	int	step_size;
 	int	i;
 
-	r = 0;
-	g = 0;
-	b = 0;
+	black.r = 0;
+	black.g = 0;
+	black.b = 0;
 	step_size = 9;
 	i = -1;
 	while (++i <= MAX_IT)
 	{
-		r += step_size;
-		if (r > tr)
-		r = tr;
-		g += step_size;
-		if (g > tg)
-		g = tg;
-		b += step_size;
-		if (b > tb)
-		b = tb;
-		info->palette[i] = rgb2c(r, g, b);
+		black.r += step_size;
+		if (black.r > tr)
+			black.r = tr;
+		black.g += step_size;
+		if (black.g > tg)
+			black.g = tg;
+		black.b += step_size;
+		if (black.b > tb)
+			black.b = tb;
+		info->palette[i] = rgb2c(black.r, black.g, black.b);
 	}
 	info->palette[MAX_IT + 1] = 0;
 }
@@ -117,9 +115,9 @@ void	draw(t_info *info)
 			c.i = info->min_i + (double)y * (info->max_i - info->min_i)
 				/ HEIGHT;
 			if (info->type == 1)
-				put_p(info->palette[mandelbrot(c.r, c.i)], x, y, &info->img);
+				put_p(info->palette[mj(c.r, c.i, info)], x, y, &info->img);
 			else if (info->type == 2)
-				put_p(info->palette[julia(c.r, c.i, info)], x, y, &info->img);
+				put_p(info->palette[mj(c.r, c.i, info)], x, y, &info->img);
 		}
 		x = -1;
 	}

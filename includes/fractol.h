@@ -6,7 +6,7 @@
 /*   By: marmoral <marmoral@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 18:33:06 by marmoral          #+#    #+#             */
-/*   Updated: 2023/04/22 00:00:39 by marmoral         ###   ########.fr       */
+/*   Updated: 2023/04/22 00:29:02 by marmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@
 
 typedef struct	s_color
 {
-	unsigned char	r;
-	unsigned char	g;
-	unsigned char	b;
+	int	r;
+	int	g;
+	int	b;
 }t_color;
 
 typedef struct	s_img
@@ -67,8 +67,7 @@ void	draw(t_info *info);
 void	set_palette(t_info *info, int tr, int tg, int tb);
 void	put_p(int color, int x, int y, t_img *img);
 double	ft_atod(const char *str);
-int		mandelbrot(double cr, double ci);
-int		julia(double zr, double zi, t_info *info);
+int		mj(double cr, double ci, t_info *info);
 int		rgb2c(int r, int g, int b);
 int		exit_key(int key, t_info	*info);
 

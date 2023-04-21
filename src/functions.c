@@ -6,13 +6,21 @@
 /*   By: marmoral <marmoral@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 21:01:30 by marmoral          #+#    #+#             */
-/*   Updated: 2023/04/21 23:51:48 by marmoral         ###   ########.fr       */
+/*   Updated: 2023/04/22 00:28:45 by marmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fractol.h"
 
-int	mandelbrot(double cr, double ci)
+void	changevalues(t_complex *z, t_info *info, double *cr, double *ci)
+{
+	z->r = *cr;
+	z->i = *ci;
+	*cr = info->k.r;
+	*ci = info->k.i;
+}
+
+int	mj(double cr, double ci, t_info *info)
 {
 	int			n;
 	t_complex	z;
@@ -23,6 +31,8 @@ int	mandelbrot(double cr, double ci)
 	z.i = 0;
 	n = -1;
 	is_in_set = 1;
+	if (info->type == 2)
+		changevalues(&z, info, &cr, &ci);
 	while (++n < MAX_IT)
 	{
 		if ((pow(z.r, 2.0) + pow(z.i, 2.0)) > 4.0)
@@ -39,6 +49,7 @@ int	mandelbrot(double cr, double ci)
 	return (n);
 }
 
+/*
 int	julia(double zr, double zi, t_info *info)
 {
 	int		n;
@@ -62,3 +73,4 @@ int	julia(double zr, double zi, t_info *info)
 		return (0);
 	return (n);
 }
+*/
