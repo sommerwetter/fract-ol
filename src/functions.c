@@ -6,7 +6,7 @@
 /*   By: marmoral <marmoral@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 21:01:30 by marmoral          #+#    #+#             */
-/*   Updated: 2023/04/22 00:28:45 by marmoral         ###   ########.fr       */
+/*   Updated: 2023/04/22 00:33:30 by marmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,11 @@ void	changevalues(t_complex *z, t_info *info, double *cr, double *ci)
 	*ci = info->k.i;
 }
 
+/*
+	Function to calculate fractal of Mandelbrot and Julia. Only changes
+	starting values if it's supposed to calculate Julia. Otherwise is the
+	same principle.
+*/
 int	mj(double cr, double ci, t_info *info)
 {
 	int			n;
