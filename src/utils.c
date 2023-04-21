@@ -6,7 +6,7 @@
 /*   By: marmoral <marmoral@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 18:40:56 by marmoral          #+#    #+#             */
-/*   Updated: 2023/04/21 19:44:46 by marmoral         ###   ########.fr       */
+/*   Updated: 2023/04/21 23:39:57 by marmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void	init_info(t_info *info)
 	info->color.r = 0;
 	info->color.g = 0;
 	info->color.b = 0;
+	info->k.r = 0;
+	info->k.i = 0;
 }
 
 /*
@@ -114,7 +116,10 @@ void	draw(t_info *info)
 			c.r = info->min_r + (double)x * (info->max_r - info->min_r) / WIDTH;
 			c.i = info->min_i + (double)y * (info->max_i - info->min_i)
 				/ HEIGHT;
-			put_p(info->palette[mandelbrot(c.r, c.i)], x, y, &info->img);
+			if (info->type == 1)
+				put_p(info->palette[mandelbrot(c.r, c.i)], x, y, &info->img);
+			else if (info->type == 2)
+				put_p(info->palette[julia(c.r, c.i, info)], x, y, &info->img);
 		}
 		x = -1;
 	}

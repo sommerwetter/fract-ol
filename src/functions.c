@@ -6,7 +6,7 @@
 /*   By: marmoral <marmoral@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 21:01:30 by marmoral          #+#    #+#             */
-/*   Updated: 2023/04/21 19:45:00 by marmoral         ###   ########.fr       */
+/*   Updated: 2023/04/21 23:51:48 by marmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,27 @@ int	mandelbrot(double cr, double ci)
 		return (0);
 	return (n);
 }
-/*int	julia(double cr, double ci)
+
+int	julia(double zr, double zi, t_info *info)
 {
+	int		n;
+	double	tmp;
+	int		is_in_set;
 	
-}*/
+	n = -1;
+	is_in_set = 1;
+	while (++n < MAX_IT)
+	{
+		if ((pow(zr, 2.0) + pow(zi, 2.0)) > 4.0)
+		{
+			is_in_set = 0;
+			break ;
+		}
+		tmp = (2 * zr * zi) + info->k.i;
+		zr = pow(zr, 2.0) - pow(zi, 2.0) + info->k.r;
+		zi = tmp;
+	}
+	if (n == MAX_IT)
+		return (0);
+	return (n);
+}

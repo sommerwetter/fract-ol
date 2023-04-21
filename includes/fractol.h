@@ -6,7 +6,7 @@
 /*   By: marmoral <marmoral@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 18:33:06 by marmoral          #+#    #+#             */
-/*   Updated: 2023/04/21 19:15:02 by marmoral         ###   ########.fr       */
+/*   Updated: 2023/04/21 23:18:35 by marmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,16 @@ typedef struct s_info
 	double		max_i;
 	t_img		img;
 	t_color		color;
+	t_complex	k;
 }t_info;
 
 void	init_info(t_info *info);
-void	init_img(t_img *img);
 void	draw(t_info *info);
-int	mandelbrot(double cr, double ci);
-int		rgb2c(int r, int g, int b);
 void	set_palette(t_info *info, int tr, int tg, int tb);
 void	put_p(int color, int x, int y, t_img *img);
+double	ft_atod(const char *str);
+int		mandelbrot(double cr, double ci);
+int		julia(double zr, double zi, t_info *info);
+int		rgb2c(int r, int g, int b);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: marmoral <marmoral@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 18:32:59 by marmoral          #+#    #+#             */
-/*   Updated: 2023/04/21 19:57:23 by marmoral         ###   ########.fr       */
+/*   Updated: 2023/04/21 23:40:29 by marmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,10 +101,10 @@ static void	render(t_info *info)
 /*
 	Input parser
 */
-static int	check(t_info *info, char **av)
+static int	check(t_info *info, char **av, int ac)
 {
 	init_info(info);
-	if (!ft_strncmp(av[1], "m", 1))
+	if (!ft_strncmp(av[1], "m", 1) && ac == 5)
 	{
 		info->type = 1;
 		info->color.r = ft_atoi(av[2]);
@@ -112,12 +112,15 @@ static int	check(t_info *info, char **av)
 		info->color.b = ft_atoi(av[4]);
 		return (0);
 	}
-	if (!ft_strncmp(av[1], "j", 1))
+	if (!ft_strncmp(av[1], "j", 1) && ac == 7)
 	{
 		info->type = 2;
-		info->color.r = ft_atoi(av[2]);
-		info->color.g = ft_atoi(av[3]);
-		info->color.b = ft_atoi(av[4]);
+		info->k.r = ft_atod(av[2]);
+		info->k.r = ft_atod(av[3]);
+		info->max_r = 1.8;
+		info->color.r = ft_atoi(av[4]);
+		info->color.g = ft_atoi(av[5]);
+		info->color.b = ft_atoi(av[6]);
 		return (0);
 	}
 	return (1);
@@ -133,7 +136,7 @@ int	main(int ac, char **av)
 			"./fractol fractal(m or j) color(r g b)", 1);
 		return (1);
 	}
-	if (check(&info, av))
+	if (check(&info, av, ac))
 	{
 		ft_putendl_fd("Wrong input\ne.g"
 			"./fractol fractal(m or j) color(r g b)", 1);
