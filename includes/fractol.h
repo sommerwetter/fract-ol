@@ -6,7 +6,7 @@
 /*   By: marmoral <marmoral@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 18:33:06 by marmoral          #+#    #+#             */
-/*   Updated: 2023/04/15 21:06:01 by marmoral         ###   ########.fr       */
+/*   Updated: 2023/04/21 19:15:02 by marmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,14 @@
 /*	size */
 # define WIDTH 900
 # define HEIGHT 900
+# define MAX_IT 60
+
+typedef struct	s_color
+{
+	unsigned char	r;
+	unsigned char	g;
+	unsigned char	b;
+}t_color;
 
 typedef struct	s_img
 {
@@ -34,12 +42,8 @@ typedef struct	s_img
 
 typedef struct	s_complex
 {
-	double	cr;
-	double	ci;
-	double	min_r;
-	double	max_r;
-	double	min_i;
-	double	max_i;
+	double	r;
+	double	i;
 }t_complex;
 
 typedef struct s_info
@@ -48,19 +52,21 @@ typedef struct s_info
 	void		*window;
 	void		*mlx_img;
 	int			type;
-	int			set;
+	int			*palette;
 	double		min_r;
 	double		max_r;
 	double		min_i;
 	double		max_i;
 	t_img		img;
-	t_complex	comp;
+	t_color		color;
 }t_info;
 
 void	init_info(t_info *info);
 void	init_img(t_img *img);
-void	mandelbrot(t_info *info);
-void	julia(t_info *info);
+void	draw(t_info *info);
+int	mandelbrot(double cr, double ci);
+int		rgb2c(int r, int g, int b);
+void	set_palette(t_info *info, int tr, int tg, int tb);
 void	put_p(int color, int x, int y, t_img *img);
 
 #endif

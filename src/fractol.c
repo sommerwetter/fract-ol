@@ -6,12 +6,15 @@
 /*   By: marmoral <marmoral@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 18:32:59 by marmoral          #+#    #+#             */
-/*   Updated: 2023/04/15 21:06:45 by marmoral         ###   ########.fr       */
+/*   Updated: 2023/04/21 19:57:23 by marmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fractol.h"
 
+/*
+	Dealin with exit
+*/
 static int	exit_key(int key, t_info	*info)
 {
 	ft_putnbr_fd(key, 1);
@@ -21,26 +24,11 @@ static int	exit_key(int key, t_info	*info)
 		mlx_destroy_window(info->mlx_ptr, info->window);
 		exit(0);
 	}
-	/*static int x;
-	if (key == 30)
-	{
-		if (x % 2 == 0)
-		{
-			ft_putnbr_fd(info->img.line_len, 1);
-			put_p(0xFFFFFF, x++, 300, &info->img);
-		}
-		else
-		{
-			ft_putnbr_fd(key, 1);
-			x++;
-		}
-	}
-	mlx_put_image_to_window(info->mlx_ptr, info->window, info->mlx_img, 0, 0);*/
+	mlx_put_image_to_window(info->mlx_ptr, info->window, info->mlx_img, 0, 0);
 	return (0);
 }
 
-/*
-int	main()
+/*int	main()
 {
 	t_info info;
 	int		x;
@@ -80,58 +68,75 @@ int	main()
 }
 */
 
-static void setup_win(t_info *info)
+/*
+	Setsup the Window
+*/
+static void	setup_win(t_info *info)
 {
 	info->mlx_ptr = mlx_init();
 	info->window = mlx_new_window(info->mlx_ptr, WIDTH, HEIGHT, "fract-ol");
 	info->mlx_img = mlx_new_image(info->mlx_ptr, WIDTH, HEIGHT);
-	info->img.addr = mlx_get_data_addr(info->mlx_img, &info->img.bpp, &info->img.line_len, &info->img.endian);
+	info->img.addr = mlx_get_data_addr(info->mlx_img, &info->img.bpp,
+			&info->img.line_len, &info->img.endian);
 	mlx_key_hook(info->window, exit_key, info);
 }
 
+/*
+	Manages which fractal to render
+*/
 static void	render(t_info *info)
 {
 	if (info->type == 1)
 	{
 		setup_win(info);
-		mandelbrot(info);
+		draw(info);
 	}
 	if (info->type == 2)
 	{
 		setup_win(info);
-		julia(info);
+		draw(info);
 	}
 }
 
-static int	Check(t_info *info, char **av)
+/*
+	Input parser
+*/
+static int	check(t_info *info, char **av)
 {
 	init_info(info);
 	if (!ft_strncmp(av[1], "m", 1))
 	{
 		info->type = 1;
+		info->color.r = ft_atoi(av[2]);
+		info->color.g = ft_atoi(av[3]);
+		info->color.b = ft_atoi(av[4]);
 		return (0);
 	}
 	if (!ft_strncmp(av[1], "j", 1))
 	{
 		info->type = 2;
+		info->color.r = ft_atoi(av[2]);
+		info->color.g = ft_atoi(av[3]);
+		info->color.b = ft_atoi(av[4]);
 		return (0);
 	}
-	else
-		return (1);
-	return (0);
+	return (1);
 }
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
 	t_info	info;
-	if (ac < 2)
+
+	if (ac < 5)
 	{
-		ft_putendl_fd("Wrong arguments", 1);
+		ft_putendl_fd("Wrong input\ne.g"
+			"./fractol fractal(m or j) color(r g b)", 1);
 		return (1);
 	}
-	if	(Check(&info, av))
+	if (check(&info, av))
 	{
-		ft_putendl_fd("Wrong input", 1);
+		ft_putendl_fd("Wrong input\ne.g"
+			"./fractol fractal(m or j) color(r g b)", 1);
 		return (1);
 	}
 	render(&info);
