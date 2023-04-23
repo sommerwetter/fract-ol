@@ -6,7 +6,7 @@
 /*   By: marmoral <marmoral@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 18:40:56 by marmoral          #+#    #+#             */
-/*   Updated: 2023/04/22 00:28:53 by marmoral         ###   ########.fr       */
+/*   Updated: 2023/04/23 21:15:25 by marmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ void	init_info(t_info *info)
 	info->type = 0;
 	info->palette = 0;
 	info->min_r = -2.0;
-	info->max_r = 1.0;
+	info->max_r = 2.0;
 	info->min_i = -1.5;
-	info->max_i = info->min_i + (info->max_r - info->min_r) * HEIGHT / WIDTH;
+	info->max_i = 1.5;
 	info->img.addr = NULL;
 	info->img.bpp = 0;
 	info->img.endian = 0;
@@ -111,9 +111,9 @@ void	draw(t_info *info)
 	{
 		while (++x < WIDTH)
 		{
-			c.r = info->min_r + (double)x * (info->max_r - info->min_r) / WIDTH;
-			c.i = info->min_i + (double)y * (info->max_i - info->min_i)
-				/ HEIGHT;
+			c.r = info->min_r + (double)x * ((info->max_r - info->min_r) / WIDTH);
+			c.i = info->min_i + (double)y * ((info->max_i - info->min_i)
+				/ HEIGHT);
 			if (info->type == 1)
 				put_p(info->palette[mj(c.r, c.i, info)], x, y, &info->img);
 			else if (info->type == 2)

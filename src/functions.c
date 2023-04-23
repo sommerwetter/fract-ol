@@ -6,7 +6,7 @@
 /*   By: marmoral <marmoral@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 21:01:30 by marmoral          #+#    #+#             */
-/*   Updated: 2023/04/22 00:33:30 by marmoral         ###   ########.fr       */
+/*   Updated: 2023/04/23 21:21:00 by marmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ int	mj(double cr, double ci, t_info *info)
 	double		tmp;
 	int			is_in_set;
 
-	z.r = 0;
-	z.i = 0;
+	z.r = cr;
+	z.i = ci;
 	n = -1;
 	is_in_set = 1;
 	if (info->type == 2)
