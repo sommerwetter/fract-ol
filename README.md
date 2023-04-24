@@ -1,5 +1,9 @@
 # fract-ol
 
+<img width="891" alt="Screenshot 2023-04-24 at 23 59 37" src="https://user-images.githubusercontent.com/75033448/234125996-9f41c019-72cf-46b3-9cf0-056d854c11bd.png">
+
+Julia fractal: c = 0.355534 - 0.337292i at 400 iterations
+
 -------------------------------
 
 # Mandelbrot
