@@ -11,4 +11,4 @@
 -- Input: ./fractol fractal(j) complex nbr(-0.7666 -1.5) color(r g b) e.g. ./fractol j -0.7666 -1.5 228 255 0
    Values of the complex number have to be between 2.0 and -2.0
 
-<img width="890" alt="Screenshot 2023-04-21 at 23 46 14" src="https://user-images.githubusercontent.com/75033448/233739588-2d123cbf-ba7a-478d-85d1-2e3806b57854.png">
+<img width="889" alt="Screenshot 2023-04-24 at 23 37 57" src="https://user-images.githubusercontent.com/75033448/234122440-2734e925-a2c1-4a15-bf2e-68dca67970f3.png">
