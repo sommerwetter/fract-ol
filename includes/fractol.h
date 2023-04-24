@@ -6,7 +6,7 @@
 /*   By: marmoral <marmoral@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 18:33:06 by marmoral          #+#    #+#             */
-/*   Updated: 2023/04/23 14:32:16 by marmoral         ###   ########.fr       */
+/*   Updated: 2023/04/24 23:30:55 by marmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@
 # define HEIGHT 900
 # define MAX_IT 60
 
-typedef struct	s_color
+typedef struct s_color
 {
 	int	r;
 	int	g;
 	int	b;
 }t_color;
 
-typedef struct	s_img
+typedef struct s_img
 {
 	char	*addr;
 	int		bpp;
@@ -40,7 +40,7 @@ typedef struct	s_img
 	int		endian;
 }t_img;
 
-typedef struct	s_complex
+typedef struct s_complex
 {
 	double	r;
 	double	i;
@@ -64,12 +64,10 @@ typedef struct s_info
 
 void	init_info(t_info *info);
 void	draw(t_info *info);
-void	set_palette(t_info *info, int tr, int tg, int tb);
-void	put_p(int color, int x, int y, t_img *img);
-double	ft_atod(const char *str);
+double	ft_atod(char *str);
 int		mj(double cr, double ci, t_info *info);
-int		rgb2c(int r, int g, int b);
-int		exit_key(int key, t_info	*info);
-int		zoom(int key, t_info *info);
+int		lisener(int key, t_info	*info);
+int		exit_ac(t_info *info);
+int		zoom(int key, int x, int y, t_info *info);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: marmoral <marmoral@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 18:40:56 by marmoral          #+#    #+#             */
-/*   Updated: 2023/04/23 21:15:25 by marmoral         ###   ########.fr       */
+/*   Updated: 2023/04/24 23:30:34 by marmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ void	init_info(t_info *info)
 	info->type = 0;
 	info->palette = 0;
 	info->min_r = -2.0;
-	info->max_r = 2.0;
-	info->min_i = -1.5;
-	info->max_i = 1.5;
+	info->max_r = 1.0;
+	info->max_i = -1.5;
+	info->min_i = 1.5;
 	info->img.addr = NULL;
 	info->img.bpp = 0;
 	info->img.endian = 0;
@@ -40,7 +40,7 @@ void	init_info(t_info *info)
 /*
 	Like mlx_put_pixel but for images
 */
-void	put_p(int color, int x, int y, t_img *img)
+static void	put_p(int color, int x, int y, t_img *img)
 {
 	char	*pixel;
 
@@ -51,7 +51,7 @@ void	put_p(int color, int x, int y, t_img *img)
 /*
 	Turns rgb values to an int color value
 */
-int	rgb2c(int r, int g, int b)
+static int	rgb2c(int r, int g, int b)
 {
 	return (0 << 24 | r << 16 | g << 8 | b);
 }
@@ -65,11 +65,11 @@ int	rgb2c(int r, int g, int b)
 /*
 	Sets the color shade of the palette
 */
-void	set_palette(t_info *info, int tr, int tg, int tb)
+static void	set_palette(t_info *info, int tr, int tg, int tb)
 {
-	t_color black;
-	int	step_size;
-	int	i;
+	t_color	black;
+	int		step_size;
+	int		i;
 
 	black.r = 0;
 	black.g = 0;
@@ -111,9 +111,8 @@ void	draw(t_info *info)
 	{
 		while (++x < WIDTH)
 		{
-			c.r = info->min_r + (double)x * ((info->max_r - info->min_r) / WIDTH);
-			c.i = info->min_i + (double)y * ((info->max_i - info->min_i)
-				/ HEIGHT);
+			c.r = info->min_r + x * ((info->max_r - info->min_r) / WIDTH);
+			c.i = info->min_i + y * ((info->max_i - info->min_i) / HEIGHT);
 			if (info->type == 1)
 				put_p(info->palette[mj(c.r, c.i, info)], x, y, &info->img);
 			else if (info->type == 2)

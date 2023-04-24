@@ -6,13 +6,13 @@
 /*   By: marmoral <marmoral@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 21:01:30 by marmoral          #+#    #+#             */
-/*   Updated: 2023/04/23 21:21:00 by marmoral         ###   ########.fr       */
+/*   Updated: 2023/04/24 23:29:25 by marmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fractol.h"
 
-void	changevalues(t_complex *z, t_info *info, double *cr, double *ci)
+static void	changevalues(t_complex *z, t_info *info, double *cr, double *ci)
 {
 	z->r = *cr;
 	z->i = *ci;
@@ -30,21 +30,16 @@ int	mj(double cr, double ci, t_info *info)
 	int			n;
 	t_complex	z;
 	double		tmp;
-	int			is_in_set;
 
-	z.r = cr;
-	z.i = ci;
+	z.r = 0;
+	z.i = 0;
 	n = -1;
-	is_in_set = 1;
 	if (info->type == 2)
 		changevalues(&z, info, &cr, &ci);
 	while (++n < MAX_IT)
 	{
 		if ((pow(z.r, 2.0) + pow(z.i, 2.0)) > 4.0)
-		{
-			is_in_set = 0;
 			break ;
-		}
 		tmp = (2 * z.r * z.i) + ci;
 		z.r = pow(z.r, 2.0) - pow(z.i, 2.0) + cr;
 		z.i = tmp;
@@ -54,8 +49,7 @@ int	mj(double cr, double ci, t_info *info)
 	return (n);
 }
 
-/*
-int	julia(double zr, double zi, t_info *info)
+/*int	julia(double zr, double zi, t_info *info)
 {
 	int		n;
 	double	tmp;
@@ -77,5 +71,4 @@ int	julia(double zr, double zi, t_info *info)
 	if (n == MAX_IT)
 		return (0);
 	return (n);
-}
-*/
+}*/

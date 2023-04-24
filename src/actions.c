@@ -6,76 +6,89 @@
 /*   By: marmoral <marmoral@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 23:59:55 by marmoral          #+#    #+#             */
-/*   Updated: 2023/04/23 21:41:17 by marmoral         ###   ########.fr       */
+/*   Updated: 2023/04/24 23:27:10 by marmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fractol.h"
 
-int	exit_key(int key, t_info *info)
+int	exit_ac(t_info *info)
 {
-	ft_putnbr_fd(key, 1);
-	if (key == K_ESC)
-	{
-		mlx_destroy_image(info->mlx_ptr, info->mlx_img);
-		mlx_destroy_window(info->mlx_ptr, info->window);
-		exit(0);
-	}
-	if (key == 30) //zoom in
-	{
-		double	center_i;
-		double	center_r;
+	mlx_destroy_image(info->mlx_ptr, info->mlx_img);
+	mlx_destroy_window(info->mlx_ptr, info->window);
+	exit(0);
+}
 
-		center_i = info->max_i - info->min_i;
-		center_r = (info->min_r - info->max_r);
-		info->min_r = info->max_r + 0.5 * center_r;
-		info->max_r = info->max_r + (center_r - 0.5 * center_r) / 2;
-		info->max_i = info->min_i + 0.5 * center_i;
-		info->min_i = info->min_i + (center_i - 0.5 * center_i) / 2;
-		draw(info);
-	}
-	if (key == 44) // zoom out
-	{
-		double	center_i;
-		double	center_r;
+/*
+	0.5 zooms in and 2 zooms out
+*/
+int	zoom(int key, int x, int y, t_info *info)
+{
+	double	center_i;
+	double	center_r;
+	double	z;
 
-		center_i = info->max_i - info->min_i;
-		center_r = (info->min_r - info->max_r);
-		info->min_r = info->max_r + 2 * center_r;
-		info->max_r = info->max_r + (center_r - 2 * center_r) / 2;
-		info->max_i = info->min_i + 2 * center_i;
-		info->min_i = info->min_i + (center_i - 2 * center_i) / 2;
-		draw(info);
-	}
-	if (key == 124)// right 124 left 123
-	{
-		double	center;
-
-		center = (info->min_r - info->max_r);
-		info->min_r = info->min_r - (center * 0.05);
-		info->max_r = info->max_r - (center * 0.05);
-		draw(info);
-	}
-	if (key == 123)
-	{
-		double	center;
-
-		center = (info->min_r - info->max_r);
-		info->min_r = info->min_r + (center * 0.05);
-		info->max_r = info->max_r + (center * 0.05);
-		draw(info);
-	}
+	(void) x;
+	(void) y;
+	center_i = info->max_i - info->min_i;
+	center_r = (info->min_r - info->max_r);
+	z = 0.0;
+	if (key == K_PLUS || key == MWDOWN)
+		z = 0.8;
+	else if (key == K_MINUS || key == MWUP)
+		z = 1.3;
+	else
+		return (0);
+	info->min_r = info->max_r + z * center_r;
+	info->max_r = info->max_r + (center_r - z * center_r) / 2;
+	info->max_i = info->min_i + z * center_i;
+	info->min_i = info->min_i + (center_i - z * center_i) / 2;
+	draw(info);
 	return (0);
 }
 
-int	zoom(int key, t_info *info)
+static void	arrows(int key, t_info *info)
 {
-	if (key == 30)
+	double	center_i;
+	double	center_r;
+
+	center_i = info->max_i - info->min_i;
+	center_r = (info->min_r - info->max_r);
+	if (key == R_ARROW)
 	{
-		info->min_r += 1;
-		info->max_r -= 1;
-		info->min_i += 1.5;
+		info->min_r -= (center_r * 0.05);
+		info->max_r -= (center_r * 0.05);
+	}
+	else if (key == L_ARROW)
+	{
+		info->min_r += (center_r * 0.05);
+		info->max_r += (center_r * 0.05);
+	}
+	else if (key == UP_ARROW)
+	{
+		info->min_i -= (center_i * 0.05);
+		info->max_i -= (center_i * 0.05);
+	}
+	else if (key == DW_ARROW)
+	{
+		info->min_i += (center_i * 0.05);
+		info->max_i += (center_i * 0.05);
+	}
+}
+
+int	lisener(int key, t_info *info)
+{
+	if (key == K_ESC)
+		exit_ac(info);
+	else if (key == K_PLUS || key == K_MINUS)
+		zoom(key, 0, 0, info);
+	else if (key == R_ARROW || key == L_ARROW || key == UP_ARROW
+		|| key == DW_ARROW)
+	{
+		arrows(key, info);
 		draw(info);
 	}
+	else
+		return (0);
 	return (0);
 }

@@ -6,58 +6,17 @@
 /*   By: marmoral <marmoral@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 18:32:59 by marmoral          #+#    #+#             */
-/*   Updated: 2023/04/23 14:43:18 by marmoral         ###   ########.fr       */
+/*   Updated: 2023/04/24 23:27:53 by marmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fractol.h"
 
 /*
-	Dealin with exit
-*/
-
-/*int	main()
-{
-	t_info info;
-	int		x;
-	int		y;
-	double	min_x = -2.0;
-	double	max_x = 1.0;
-	double	min_i = -1.5;
-	double	max_i = min_i + (max_x - min_x) * HEIGHT / WIDTH;
-	int		tmp;
-
-	x = 150;
-	y = 150;
-	tmp = x;
-	init_info(&info);
-	info.mlx_ptr = mlx_init();
-	info.window = mlx_new_window(info.mlx_ptr, WIDTH, HEIGHT, "test");
-	info.mlx_img = mlx_new_image(info.mlx_ptr, WIDTH, HEIGHT);
-	info.img.addr = mlx_get_data_addr(info.mlx_img, &info.img.bpp, &info.img.line_len, &info.img.endian);
-	ft_putnbr_fd(info.img.line_len, 1);
-	//index = info.img.line_len * HEIGHT + WIDTH * (info.img.bpp / 8);
-	while (x <= (tmp + 100))
-		put_p(0xFFFFFF, x++, y, &info.img);
-	x -= 101;
-	tmp = y;
-	while (y <= (tmp + 100))
-		put_p(0xFFFFFF, x, y++, &info.img);
-	tmp = x;
-	while (x <= (tmp + 100))
-		put_p(0xFFFFFF, x++, y, &info.img);
-	tmp = y;
-	while (y >= (tmp - 101))
-		put_p(0xFFFFFF, x, y--, &info.img);
-	//mlx_key_hook(info.window, deal_key, &info);
-	mlx_put_image_to_window(info.mlx_ptr, info.window, info.mlx_img, 0, 0);
-	mlx_loop(info.mlx_ptr);
-	return (0);
-}
-*/
-
-/*
 	Setsup the Window
+	make re && ./fractol m 255 255 0
+	make re && ./fractol j 0.285 0.01 0 255 255
+	norminette src && norminette libft && norminette includes 
 */
 static void	setup_win(t_info *info)
 {
@@ -66,7 +25,9 @@ static void	setup_win(t_info *info)
 	info->mlx_img = mlx_new_image(info->mlx_ptr, WIDTH, HEIGHT);
 	info->img.addr = mlx_get_data_addr(info->mlx_img, &info->img.bpp,
 			&info->img.line_len, &info->img.endian);
-	mlx_key_hook(info->window, exit_key, info);
+	mlx_key_hook(info->window, lisener, info);
+	mlx_mouse_hook(info->window, zoom, info);
+	mlx_hook(info->window, 17, 0, exit_ac, info);
 }
 
 /*
@@ -103,9 +64,11 @@ static int	check(t_info *info, char **av, int ac)
 	if (!ft_strncmp(av[1], "j", 1) && ac == 7)
 	{
 		info->type = 2;
+		info->max_r = 2.0;
+		info->min_i = -2.0;
+		info->max_i = 2.0;
 		info->k.r = ft_atod(av[2]);
-		info->k.r = ft_atod(av[3]);
-		info->max_r = 1.8;
+		info->k.i = ft_atod(av[3]);
 		info->color.r = ft_atoi(av[4]);
 		info->color.g = ft_atoi(av[5]);
 		info->color.b = ft_atoi(av[6]);

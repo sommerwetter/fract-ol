@@ -6,70 +6,62 @@
 /*   By: marmoral <marmoral@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 22:45:13 by marmoral          #+#    #+#             */
-/*   Updated: 2023/04/21 23:35:51 by marmoral         ###   ########.fr       */
+/*   Updated: 2023/04/24 21:02:09 by marmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fractol.h"
 
-static	double	check_sign(const char *str)
+static int	check_sign(char *str)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
-	while (str[i] == ' ' || str[i] == '\n'
-		|| str[i] == '\f' || str[i] == '\r' || str[i] == '\t' || str[i] == '\v')
+	while ((str[i] >= 9 && str[i] <= 13) || str[i] == ' ')
 		i++;
 	if (str[i] == '-')
-		return (-1.0);
-	return (1.0);
+		return (-1);
+	return (1);
 }
 
-static	int	find_start(const char *str)
+static int	find_start(char *str)
 {
-	size_t	n;
+	int	i;
 
-	n = 0;
-	while (str[n] == '-' || str[n] == '+' || str[n] == ' ' || str[n] == '\n'
-		|| str[n] == '\f' || str[n] == '\r' || str[n] == '\t' || str[n] == '\v')
-	{
-		if ((str[n] == '-' || str[n] == '+') && !ft_isdigit(str[n + 1]))
-			return (-1);
-		n++;
-	}
-	return (n);
+	i = 0;
+	while ((str[i] >= 9 && str[i] <= 13) || str[i] == ' ' || str[i] == '+'
+		|| str[i] == '-')
+		i++;
+	return (i);
 }
- /*
-	Have to fix value if there is a zero between numbers
- */
-double	ft_atod(const char *str)
-{
-	int		x;
-	double	nbr;
-	double	result;
-	int		count;
 
-	nbr = 0.0;
-	result = 0.0;
-	count = -1;
-	x = find_start(str);
-	if (x == -1)
-		return (0);
-	while (ft_isdigit(str[x]))
+double	ft_atod(char *str)
+{
+	int		i;
+	double	nb;
+	double	div;
+
+	nb = 0;
+	div = 0.1;
+	i = find_start(str);
+	if (!ft_isdigit(str[i]))
+		return (1);
+	while (ft_isdigit(str[i]) && str[i] != '.')
 	{
-		nbr = str[x] - '0';
-		result = (result * 10.0) + nbr;
-		x++;
-		if (str[x] == '.')
-			x++;
-		count++;
+		nb = (nb * 10.0) + (str[i] - '0');
+		i++;
 	}
-	while (count > 0)
+	if (str[i] == '.')
+		i++;
+	if (!ft_isdigit(str[i]))
+		return (1);
+	while (ft_isdigit(str[i]))
 	{
-		result /= 10;
-		count--;
+		nb = nb + ((str[i] - '0') * div);
+		div *= 0.1;
+		i++;
 	}
-	return (check_sign(str) * result);
+	return (nb * check_sign(str));
 }
 
 //make && ./fractol j -0.766667 -1.300 228 255 0
