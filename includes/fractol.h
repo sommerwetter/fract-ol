@@ -6,7 +6,7 @@
 /*   By: marmoral <marmoral@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 18:33:06 by marmoral          #+#    #+#             */
-/*   Updated: 2023/04/24 23:30:55 by marmoral         ###   ########.fr       */
+/*   Updated: 2023/04/25 21:27:05 by marmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct s_info
 	void		*mlx_img;
 	int			type;
 	int			*palette;
+	int			max_it;
 	double		min_r;
 	double		max_r;
 	double		min_i;
@@ -64,6 +65,7 @@ typedef struct s_info
 
 void	init_info(t_info *info);
 void	draw(t_info *info);
+void	errorprint(int error, t_info *info);
 double	ft_atod(char *str);
 int		mj(double cr, double ci, t_info *info);
 int		lisener(int key, t_info	*info);

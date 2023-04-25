@@ -6,7 +6,7 @@
 /*   By: marmoral <marmoral@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 23:59:55 by marmoral          #+#    #+#             */
-/*   Updated: 2023/04/24 23:27:10 by marmoral         ###   ########.fr       */
+/*   Updated: 2023/04/25 21:38:21 by marmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,18 @@ static void	arrows(int key, t_info *info)
 	}
 }
 
+static void	increaseit(int key, t_info *info)
+{
+	if (key == Q_KEY)
+		info->max_it += 60;
+	if (key == E_KEY)
+		info->max_it -= 60;
+	ft_putstr_fd("Iterations: ", 1);
+	ft_putnbr_fd(info->max_it, 1);
+	ft_putchar_fd('\n', 1);
+	draw(info);
+}
+
 int	lisener(int key, t_info *info)
 {
 	if (key == K_ESC)
@@ -88,6 +100,8 @@ int	lisener(int key, t_info *info)
 		arrows(key, info);
 		draw(info);
 	}
+	else if (key == Q_KEY || key == E_KEY)
+		increaseit(key, info);
 	else
 		return (0);
 	return (0);

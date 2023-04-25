@@ -6,7 +6,7 @@
 /*   By: marmoral <marmoral@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 22:45:13 by marmoral          #+#    #+#             */
-/*   Updated: 2023/04/24 21:02:09 by marmoral         ###   ########.fr       */
+/*   Updated: 2023/04/25 20:45:34 by marmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ double	ft_atod(char *str)
 	}
 	if (str[i] == '.')
 		i++;
-	if (!ft_isdigit(str[i]))
+	if (str[i] && !ft_isdigit(str[i]))
 		return (1);
 	while (ft_isdigit(str[i]))
 	{

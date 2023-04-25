@@ -6,7 +6,7 @@
 /*   By: marmoral <marmoral@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 18:40:56 by marmoral          #+#    #+#             */
-/*   Updated: 2023/04/24 23:30:34 by marmoral         ###   ########.fr       */
+/*   Updated: 2023/04/25 21:49:51 by marmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	init_info(t_info *info)
 	info->color.b = 0;
 	info->k.r = 0;
 	info->k.i = 0;
+	info->max_it = MAX_IT;
 }
 
 /*
@@ -68,28 +69,29 @@ static int	rgb2c(int r, int g, int b)
 static void	set_palette(t_info *info, int tr, int tg, int tb)
 {
 	t_color	black;
-	int		step_size;
 	int		i;
 
 	black.r = 0;
 	black.g = 0;
 	black.b = 0;
-	step_size = 9;
 	i = -1;
-	while (++i <= MAX_IT)
+	info->palette = ft_calloc((info->max_it + 1), sizeof(int));
+	if (!info->palette)
+		errorprint(7, (void *) 0);
+	while (++i <= info->max_it)
 	{
-		black.r += step_size;
+		black.r += 9;
 		if (black.r > tr)
 			black.r = tr;
-		black.g += step_size;
+		black.g += 9;
 		if (black.g > tg)
 			black.g = tg;
-		black.b += step_size;
+		black.b += 9;
 		if (black.b > tb)
 			black.b = tb;
 		info->palette[i] = rgb2c(black.r, black.g, black.b);
 	}
-	info->palette[MAX_IT + 1] = 0;
+	info->palette[info->max_it + 1] = 0;
 }
 
 /*
@@ -105,7 +107,6 @@ void	draw(t_info *info)
 	c.r = 0;
 	c.i = 0;
 	x = -1;
-	info->palette = ft_calloc((MAX_IT + 1), sizeof(int));
 	set_palette(info, info->color.r, info->color.g, info->color.b);
 	while (y++ < HEIGHT)
 	{

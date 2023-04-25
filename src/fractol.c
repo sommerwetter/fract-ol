@@ -6,7 +6,7 @@
 /*   By: marmoral <marmoral@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 18:32:59 by marmoral          #+#    #+#             */
-/*   Updated: 2023/04/24 23:27:53 by marmoral         ###   ########.fr       */
+/*   Updated: 2023/04/25 21:50:12 by marmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 	Setsup the Window
 	make re && ./fractol m 255 255 0
 	make re && ./fractol j 0.285 0.01 0 255 255
+	./fractol j 0.355534 -0.337292 0 255 255
 	norminette src && norminette libft && norminette includes 
 */
 static void	setup_win(t_info *info)
@@ -50,6 +51,7 @@ static void	render(t_info *info)
 /*
 	Input parser
 */
+
 static int	check(t_info *info, char **av, int ac)
 {
 	init_info(info);
@@ -69,6 +71,7 @@ static int	check(t_info *info, char **av, int ac)
 		info->max_i = 2.0;
 		info->k.r = ft_atod(av[2]);
 		info->k.i = ft_atod(av[3]);
+		errorprint(8, info);
 		info->color.r = ft_atoi(av[4]);
 		info->color.g = ft_atoi(av[5]);
 		info->color.b = ft_atoi(av[6]);
@@ -81,19 +84,13 @@ int	main(int ac, char **av)
 {
 	t_info	info;
 
-	if (ac < 5)
-	{
-		ft_putendl_fd("Wrong input\ne.g"
-			"./fractol fractal(m or j) color(r g b)", 1);
-		return (1);
-	}
-	if (check(&info, av, ac))
-	{
-		ft_putendl_fd("Wrong input\ne.g"
-			"./fractol fractal(m or j) color(r g b)", 1);
-		return (1);
-	}
+	if (ac < 5 || check(&info, av, ac))
+		errorprint(9, (void *) 0);
 	render(&info);
+	ft_putendl_fd("--Instructions--\n- User arrow keys to move\n"
+		"- Use mouse scroll wheel or '+' & '-' "
+		"keys to zoom in and out\n"
+		"- Use 'Q' to increase and 'E' to decrease iterations\n--", 1);
 	mlx_loop(info.mlx_ptr);
 	return (0);
 }
