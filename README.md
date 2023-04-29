@@ -16,3 +16,7 @@ Julia fractal: c = 0.355534 - 0.337292i at 400 iterations
    Values of the complex number have to be between 2.0 and -2.0
 
 <img width="889" alt="julia2" src="https://user-images.githubusercontent.com/75033448/234122440-2734e925-a2c1-4a15-bf2e-68dca67970f3.png">
+
+Sources:
+
+https://www.mathsisfun.com/numbers/complex-numbers.html
