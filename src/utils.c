@@ -6,7 +6,7 @@
 /*   By: marmoral <marmoral@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 18:40:56 by marmoral          #+#    #+#             */
-/*   Updated: 2023/04/25 21:49:51 by marmoral         ###   ########.fr       */
+/*   Updated: 2023/04/29 11:56:01 by marmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,21 +50,17 @@ static void	put_p(int color, int x, int y, t_img *img)
 }
 
 /*
-	Turns rgb values to an int color value
+	Turns rgb values to an int color value by bitshifting the number 0
 */
 static int	rgb2c(int r, int g, int b)
 {
 	return (0 << 24 | r << 16 | g << 8 | b);
 }
 
-/*int	get_rgb (int color)
-{
-	(void) color;
-	return (0);
-}*/
-
 /*
-	Sets the color shade of the palette
+	Sets the color shade of the palette. It starts from black to the desired color
+	by changing each time its rgb values by 9. If the value exceeds the desired
+	rgb values it resets them to the desired value.
 */
 static void	set_palette(t_info *info, int tr, int tg, int tb)
 {
@@ -75,9 +71,6 @@ static void	set_palette(t_info *info, int tr, int tg, int tb)
 	black.g = 0;
 	black.b = 0;
 	i = -1;
-	info->palette = ft_calloc((info->max_it + 1), sizeof(int));
-	if (!info->palette)
-		errorprint(7, (void *) 0);
 	while (++i <= info->max_it)
 	{
 		black.r += 9;
@@ -95,7 +88,8 @@ static void	set_palette(t_info *info, int tr, int tg, int tb)
 }
 
 /*
-	draws fractal, gets pixel location
+	Draws fractal, using the pixels x & y coordinates it calculates its
+	coordinates on the real-imaginary coordinated system
 */
 void	draw(t_info *info)
 {
@@ -107,6 +101,9 @@ void	draw(t_info *info)
 	c.r = 0;
 	c.i = 0;
 	x = -1;
+	info->palette = ft_calloc((info->max_it + 1), sizeof(int));
+	if (!info->palette)
+		errorprint(7, (void *) 0);
 	set_palette(info, info->color.r, info->color.g, info->color.b);
 	while (y++ < HEIGHT)
 	{
@@ -114,10 +111,7 @@ void	draw(t_info *info)
 		{
 			c.r = info->min_r + x * ((info->max_r - info->min_r) / WIDTH);
 			c.i = info->min_i + y * ((info->max_i - info->min_i) / HEIGHT);
-			if (info->type == 1)
-				put_p(info->palette[mj(c.r, c.i, info)], x, y, &info->img);
-			else if (info->type == 2)
-				put_p(info->palette[mj(c.r, c.i, info)], x, y, &info->img);
+			put_p(info->palette[mj(c.r, c.i, info)], x, y, &info->img);
 		}
 		x = -1;
 	}

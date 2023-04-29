@@ -6,12 +6,15 @@
 /*   By: marmoral <marmoral@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 21:01:30 by marmoral          #+#    #+#             */
-/*   Updated: 2023/04/25 21:48:32 by marmoral         ###   ########.fr       */
+/*   Updated: 2023/04/29 11:02:46 by marmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fractol.h"
 
+/*
+	Error printing handler.
+*/
 void	errorprint(int error, t_info *info)
 {
 	if (error == 9)
@@ -38,6 +41,12 @@ void	errorprint(int error, t_info *info)
 	}
 }
 
+/*
+	Mandelbrot and Julia fractals are corelated. While mandelbrot calculates
+	with z = 0 and c is defined by the pixel we evaluate, Julia calculates
+	with z = our pixel and c(in this case changed to k for contrast) is the
+	constant we give as input.
+*/
 static void	changevalues(t_complex *z, t_info *info, double *cr, double *ci)
 {
 	z->r = *cr;
@@ -49,7 +58,10 @@ static void	changevalues(t_complex *z, t_info *info, double *cr, double *ci)
 /*
 	Function to calculate fractal of Mandelbrot and Julia. Only changes
 	starting values if it's supposed to calculate Julia. Otherwise is the
-	same principle.
+	same principle. The absolute value of a complex number (in this case Z)
+	is determined by its vector lenght in the imaginary and real axis
+	which would be sqrt(zr^2 + zi^2) which for the Mandelbrot and Julia
+	sets should by definition not exceed the value of 2.
 */
 int	mj(double cr, double ci, t_info *info)
 {
@@ -74,27 +86,3 @@ int	mj(double cr, double ci, t_info *info)
 		return (0);
 	return (n);
 }
-
-/*int	julia(double zr, double zi, t_info *info)
-{
-	int		n;
-	double	tmp;
-	int		is_in_set;
-	
-	n = -1;
-	is_in_set = 1;
-	while (++n < MAX_IT)
-	{
-		if ((pow(zr, 2.0) + pow(zi, 2.0)) > 4.0)
-		{
-			is_in_set = 0;
-			break ;
-		}
-		tmp = (2 * zr * zi) + info->k.i;
-		zr = pow(zr, 2.0) - pow(zi, 2.0) + info->k.r;
-		zi = tmp;
-	}
-	if (n == MAX_IT)
-		return (0);
-	return (n);
-}*/

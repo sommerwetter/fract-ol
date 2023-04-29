@@ -6,18 +6,18 @@
 /*   By: marmoral <marmoral@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 18:32:59 by marmoral          #+#    #+#             */
-/*   Updated: 2023/04/25 21:50:12 by marmoral         ###   ########.fr       */
+/*   Updated: 2023/04/29 11:03:10 by marmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fractol.h"
 
 /*
-	Setsup the Window
 	make re && ./fractol m 255 255 0
 	make re && ./fractol j 0.285 0.01 0 255 255
 	./fractol j 0.355534 -0.337292 0 255 255
-	norminette src && norminette libft && norminette includes 
+	norminette src && norminette libft && norminette includes
+	Sets up the Window.
 */
 static void	setup_win(t_info *info)
 {
@@ -32,24 +32,7 @@ static void	setup_win(t_info *info)
 }
 
 /*
-	Manages which fractal to render
-*/
-static void	render(t_info *info)
-{
-	if (info->type == 1)
-	{
-		setup_win(info);
-		draw(info);
-	}
-	if (info->type == 2)
-	{
-		setup_win(info);
-		draw(info);
-	}
-}
-
-/*
-	Input parser
+	Input parser.
 */
 
 static int	check(t_info *info, char **av, int ac)
@@ -86,7 +69,8 @@ int	main(int ac, char **av)
 
 	if (ac < 5 || check(&info, av, ac))
 		errorprint(9, (void *) 0);
-	render(&info);
+	setup_win(&info);
+	draw(&info);
 	ft_putendl_fd("--Instructions--\n- User arrow keys to move\n"
 		"- Use mouse scroll wheel or '+' & '-' "
 		"keys to zoom in and out\n"
