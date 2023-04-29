@@ -6,7 +6,7 @@
 /*   By: marmoral <marmoral@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 18:32:59 by marmoral          #+#    #+#             */
-/*   Updated: 2023/04/29 11:03:10 by marmoral         ###   ########.fr       */
+/*   Updated: 2023/04/29 12:37:45 by marmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	check(t_info *info, char **av, int ac)
 		info->color.r = ft_atoi(av[2]);
 		info->color.g = ft_atoi(av[3]);
 		info->color.b = ft_atoi(av[4]);
-		return (0);
+		return (1);
 	}
 	if (!ft_strncmp(av[1], "j", 1) && ac == 7)
 	{
@@ -58,16 +58,16 @@ static int	check(t_info *info, char **av, int ac)
 		info->color.r = ft_atoi(av[4]);
 		info->color.g = ft_atoi(av[5]);
 		info->color.b = ft_atoi(av[6]);
-		return (0);
+		return (1);
 	}
-	return (1);
+	return (0);
 }
 
 int	main(int ac, char **av)
 {
 	t_info	info;
 
-	if (ac < 5 || check(&info, av, ac))
+	if (ac < 5 || !check(&info, av, ac))
 		errorprint(9, (void *) 0);
 	setup_win(&info);
 	draw(&info);
