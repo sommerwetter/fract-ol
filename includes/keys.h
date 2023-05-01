@@ -6,7 +6,7 @@
 /*   By: marmoral <marmoral@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 16:57:49 by marmoral          #+#    #+#             */
-/*   Updated: 2023/04/25 21:37:10 by marmoral         ###   ########.fr       */
+/*   Updated: 2023/05/01 14:26:15 by marmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,5 @@
 # define E_KEY 14
 # define MWDOWN 4
 # define MWUP 5
-# define RED 0xFF0000
-# define OGREEN 0x808000
-# define LAV 0xE6E6FA
-# define CORAL 0xFF7F50
-# define SALMON 0xFA8072
-# define BLACK 0x000000
 
 #endif
