@@ -6,7 +6,7 @@
 /*   By: marmoral <marmoral@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 21:01:30 by marmoral          #+#    #+#             */
-/*   Updated: 2023/04/29 11:02:46 by marmoral         ###   ########.fr       */
+/*   Updated: 2023/05/01 18:06:14 by marmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,10 @@ int	mj(double cr, double ci, t_info *info)
 		changevalues(&z, info, &cr, &ci);
 	while (++n < info->max_it)
 	{
-		if ((pow(z.r, 2.0) + pow(z.i, 2.0)) > 4.0)
+		if ((z.r * z.r + z.i * z.i) > 4.0)
 			break ;
 		tmp = (2 * z.r * z.i) + ci;
-		z.r = pow(z.r, 2.0) - pow(z.i, 2.0) + cr;
+		z.r = z.r * z.r - z.i * z.i + cr;
 		z.i = tmp;
 	}
 	if (n == info->max_it)
