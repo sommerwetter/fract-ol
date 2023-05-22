@@ -6,7 +6,7 @@
 /*   By: marmoral <marmoral@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 18:40:56 by marmoral          #+#    #+#             */
-/*   Updated: 2023/05/01 18:04:33 by marmoral         ###   ########.fr       */
+/*   Updated: 2023/05/22 23:42:33 by marmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static void	set_palette(t_info *info, int tr, int tg, int tb)
 	black.g = 0;
 	black.b = 0;
 	i = -1;
-	while (++i <= info->max_it)
+	while (++i < info->max_it)
 	{
 		black.r += 9;
 		if (black.r > tr)
@@ -84,7 +84,7 @@ static void	set_palette(t_info *info, int tr, int tg, int tb)
 			black.b = tb;
 		info->palette[i] = rgb2c(black.r, black.g, black.b);
 	}
-	info->palette[info->max_it + 1] = 0;
+	info->palette[i] = 0;
 }
 
 /*

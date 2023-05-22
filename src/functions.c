@@ -6,7 +6,7 @@
 /*   By: marmoral <marmoral@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 21:01:30 by marmoral          #+#    #+#             */
-/*   Updated: 2023/05/01 18:06:14 by marmoral         ###   ########.fr       */
+/*   Updated: 2023/05/01 19:07:36 by marmoral         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,9 @@ void	errorprint(int error, t_info *info)
 	{
 		ft_putendl_fd("**Wrong input**\n\ne.g:\n"
 			"./fractol m(fractal) r g b(color) "
-			"for Mandelbrot\n./fractol j(fractal) "
-			"kr ki(complex values) r g b(color)\n", 1);
+			"for Mandelbrot\n./fractol m 255 255 0\n./fractol j(fractal) "
+			"kr ki(complex values) r g b(color)\n"
+			"./fractol j 0.285 0.01 0 255 255\n", 1);
 		exit(0);
 	}
 	else if (error == 8)
